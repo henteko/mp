@@ -13,7 +13,9 @@ func main() {
 	app.Usage = ""
 	app.Author = "henteko"
 	app.Email = "henteko07@gmail.com"
-	app.Commands = Commands
+//	app.Commands = Commands
+	app.Action = Action
+	app.Flags = Flags
 
 	app.Run(os.Args)
 }

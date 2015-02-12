@@ -5,6 +5,19 @@ mp
 
 ## Usage
 
+```bash
+// dump to mobileprovision
+$ mp /path/to/example.mobileprovision
+
+// get value
+$ mp --key UUID /path/to/example.mobileprovision
+$ mp -k UUID /path/to/example.mobileprovision
+
+// install
+$ mp --install /path/to/example.mobileprovision
+$ mp -i /path/to/example.mobileprovision
+```
+
 ## Install
 
 To install, use `go get`:
