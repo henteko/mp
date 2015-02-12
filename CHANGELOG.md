@@ -1,10 +1,10 @@
-## 0.1.0 (2014-08-18)
+## 0.1.0 (2015-02-12)
 
 Initial release
 
 ### Added
 
-- Add Fundamental features
+- Add dump, read, install
 
 ### Deprecated
 
