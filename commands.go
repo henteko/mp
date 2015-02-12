@@ -50,6 +50,7 @@ func doAction(c *cli.Context) {
 }
 
 func doInstall(mobileProvisioningFilePath string) {
+	install(mobileProvisioningFilePath)
 }
 
 func doRead(mobileProvisioningFilePath string, key string) {
