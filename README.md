@@ -2,20 +2,38 @@ mp
 ====
 
 ## Description
+mp is simple analyzer for .mobileprovision file
 
 ## Usage
 
+### dump
+
 ```bash
-// dump to mobileprovision
 $ mp /path/to/example.mobileprovision
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>AppIDName</key>
+    ....
+</dict>
+</plist>
+```
 
-// get value
+### read
+
+```bash
 $ mp --key UUID /path/to/example.mobileprovision
-$ mp -k UUID /path/to/example.mobileprovision
+$ mp -k UUID /path/to/example.mobileprovision //short ver
+XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
+```
 
-// install
+### install
+
+```bash
 $ mp --install /path/to/example.mobileprovision
-$ mp -i /path/to/example.mobileprovision
+$ mp -i /path/to/example.mobileprovision //short ver
+Installed to /Users/example/Library/MobileDevice/Provisioning Profiles/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.mobileprovision
 ```
 
 ## Install
@@ -24,6 +42,8 @@ To install, use `go get`:
 
 ```bash
 $ go get -d github.com/henteko/mp
+$ cd $GOPATH/src/github.com/henteko/mp
+$ make install
 ```
 
 ## Contribution
