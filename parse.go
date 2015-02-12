@@ -9,13 +9,14 @@ import (
 	"howett.net/plist"
 )
 
+// TODO: 他のkeyもサポートする
 type smobileProvisioningFileParseBundleHeader struct {
-	AppIDName string `plist:"AppIDName"`
-	Name string `plist:"Name"`
-	TeamName string `plist:"TeamName"`
+	AppIDName  string `plist:"AppIDName"`
+	Name       string `plist:"Name"`
+	TeamName   string `plist:"TeamName"`
 	TimeToLive int `plist:"TimeToLive"`
-	UUID string `plist:"UUID"`
-	Version int `plist:"Version"`
+	UUID       string `plist:"UUID"`
+	Version    int `plist:"Version"`
 }
 
 func getPlistData(mobileprovisioningFilePath string) smobileProvisioningFileParseBundleHeader {
