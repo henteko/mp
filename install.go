@@ -40,6 +40,21 @@ func installList(mobileProvisioningName string) {
 	}
 }
 
+func uninstall(mobileProvisioningFileName string) {
+	path := getInstallPath() + mobileProvisioningFileName
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		fmt.Println("no install mobileprovisioning file: ", mobileProvisioningFileName)
+		os.Exit(1)
+	}
+
+	err := exec.Command("rm", path).Run()
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+	fmt.Println("Uninstalled to ", path)
+}
+
 func getUserHomeDir() string {
 	usr, err := user.Current()
 	if err != nil {

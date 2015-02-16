@@ -21,6 +21,10 @@ var Flags = []cli.Flag {
 		Name: "list, l",
 		Usage: "install list for mobileprovision files",
 	},
+	cli.StringFlag{
+		Name: "uninstall, u",
+		Usage: "uninstall to installed mobileprovision file",
+	},
 }
 
 var Action = doAction
@@ -45,6 +49,12 @@ func doAction(c *cli.Context) {
 		os.Exit(0)
 	}
 
+	// uninstallの場合はmobileprovision fileはいらない
+	if c.String("uninstall") != "" {
+		doUninstall(c.String("uninstall"))
+		os.Exit(0)
+	}
+
 	if len(c.Args()) <= 0 {
 		fmt.Println("Please input *.mobileprovision file path")
 		os.Exit(1)
@@ -62,6 +72,10 @@ func doAction(c *cli.Context) {
 
 func doInstall(mobileProvisioningFilePath string) {
 	install(mobileProvisioningFilePath)
+}
+
+func doUninstall(mobileProvisioningFilePath string) {
+	uninstall(mobileProvisioningFilePath)
 }
 
 func doInstallList(mobileProvisioningName string) {
