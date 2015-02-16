@@ -17,6 +17,10 @@ var Flags = []cli.Flag {
 		Name: "install, i",
 		Usage: "install to mobileprovision file",
 	},
+	cli.StringFlag{
+		Name: "list, l",
+		Usage: "install list for mobileprovision files",
+	},
 }
 
 var Action = doAction
@@ -34,6 +38,13 @@ func assert(err error) {
 }
 
 func doAction(c *cli.Context) {
+	// listの場合はmobileprovision fileはいらない
+	// TODO: 空の場合はallにする
+	if c.String("list") != "" {
+		doInstallList(c.String("list"))
+		os.Exit(0)
+	}
+
 	if len(c.Args()) <= 0 {
 		fmt.Println("Please input *.mobileprovision file path")
 		os.Exit(1)
@@ -51,6 +62,10 @@ func doAction(c *cli.Context) {
 
 func doInstall(mobileProvisioningFilePath string) {
 	install(mobileProvisioningFilePath)
+}
+
+func doInstallList(mobileProvisioningName string) {
+	installList(mobileProvisioningName)
 }
 
 func doRead(mobileProvisioningFilePath string, key string) {

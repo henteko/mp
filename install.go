@@ -5,8 +5,11 @@ import (
 	"os/exec"
 	"os/user"
 	"fmt"
+	"io/ioutil"
+	"regexp"
 )
 
+const installPath = "/Library/MobileDevice/Provisioning Profiles"
 
 func install(mobileProvisioningFilePath string) {
 	plist := getPlistData(mobileProvisioningFilePath)
@@ -20,6 +23,23 @@ func install(mobileProvisioningFilePath string) {
 	fmt.Println("Installed to ", cpFileName)
 }
 
+func installList(mobileProvisioningName string) {
+	files, _ := ioutil.ReadDir(getInstallPath())
+	for _, f := range files {
+		if _, err := os.Stat(getInstallPath() + f.Name()); os.IsNotExist(err) {
+			// fileの存在確認でなかったらスキップする
+			continue
+		}
+
+		if isProvisioningFile(f.Name()) {
+			plist := getPlistData(getInstallPath() + f.Name())
+			if plist.Name == mobileProvisioningName {
+				fmt.Println(f.Name())
+			}
+		}
+	}
+}
+
 func getUserHomeDir() string {
 	usr, err := user.Current()
 	if err != nil {
@@ -30,7 +50,17 @@ func getUserHomeDir() string {
 	return usr.HomeDir
 }
 
-const installPath = "/Library/MobileDevice/Provisioning Profiles"
 func getCpFileName(plist smobileProvisioningFileParseBundleHeader) string {
-	return getUserHomeDir() + installPath + "/" + plist.UUID + ".mobileprovision"
+	return getInstallPath() + plist.UUID + ".mobileprovision"
+}
+
+func getInstallPath() string{
+	return getUserHomeDir() + installPath + "/"
+}
+
+func isProvisioningFile(fileName string) (b bool) {
+	if m, _ := regexp.MatchString(".mobileprovision$", fileName); !m {
+		return false
+	}
+	return true
 }
